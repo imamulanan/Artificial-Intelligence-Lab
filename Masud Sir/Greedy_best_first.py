@@ -34,32 +34,33 @@ H = {
 from heapq import heappush, heappop
 
 def greedy_best_first(graph, heuristic, start, goal):
+    # Frontier এ tuple ঢুকবে: (heuristic value, actual cost, node, path)
     frontier = []
-
-    # এখানে frontier এ tuple ঢোকানো হচ্ছে: heuristic[start] → শুরু নোড থেকে goal এ আনুমানিক cost (h-value)। 0 → এখন পর্যন্ত আসল খরচ (g-value)। start → নোড। [start] → path list।
-
     heappush(frontier, (heuristic[start], 0, start, [start]))
 
-    # 👉 এই dictionary রাখবে কোন নোডে সবচেয়ে কম খরচে পৌঁছানো গেছে।
-    # শুরুতে start নোডে পৌঁছানোর খরচ 0 ধরা হয়েছে।
-
-    best_graph = {start: 0}
+    visited = set()  # already explored nodes
 
     while frontier:
-        cost, path_cost, node, path_list = heappop(frontier)
-        if node == goal:
-            return path_cost, path_list
-        
-        #  বর্তমান node এর সাথে যুক্ত সব neighbor (প্রতিবেশী নোড) এবং তার খরচ (neighbor_cost) নেওয়া হচ্ছে।
-        for neighbor, neighbor_cost in graph[node]:
-            updated_cost = cost + heuristic[neighbor]
-            #  চেক করা হচ্ছে: যদি neighbor আগে explore না হয়ে থাকে , অথবা আগে যেটা পাওয়া গেছিল তার থেকে এখনকার খরচ কম হয় ,তাহলে আমরা এই নতুন path ব্যবহার করবো।
-            if neighbor not in best_graph or updated_cost < best_graph[neighbor]:
-                best_graph[neighbor] = updated_cost
-                    # নিচের লাইনে frontier-এ নতুন tuple ঢোকানো হচ্ছে।
-                    # updated_cost: heuristic + cost, path_cost + neighbor_cost: মোট আসল খরচ, neighbor: পরবর্তী নোড, path_list + [neighbor]: নতুন path
-                heappush(frontier, (updated_cost, path_cost + neighbor_cost, neighbor, path_list + [neighbor]))
+        # g(n) মানে হলো start থেকে এখন পর্যন্ত সেই নোডে পৌঁছানোর আসল খরচ।
+        # h(n) মানে হলো নোড n থেকে goal (Bucharest) পর্যন্ত আনুমানিক খরচ।
+        # f(n) = g(n) + h(n)
+        h, g, node, path = heappop(frontier)
 
-cost, path= greedy_best_first(G, H, "Arad", "Bucharest") 
-print("Path : ", " -> ".join(path))
-print("Cost : ", cost)
+        if node == goal:
+            return g, path
+
+        if node in visited:
+            continue
+        visited.add(node)
+
+        # Explore neighbors
+        for neighbor, cost in graph[node]:
+            if neighbor not in visited:
+                g_new = g + cost
+                heappush(frontier, (heuristic[neighbor], g_new, neighbor, path + [neighbor]))
+
+    return None, float("inf")
+
+cost, path = greedy_best_first(G, H, "Arad", "Bucharest")
+print("Path :", " -> ".join(path))
+print("Cost :", cost)
