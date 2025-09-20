@@ -58,6 +58,9 @@ def build_statement(logic):
 
 from sympy import symbols
 from sympy.logic.boolalg import And, Not, Implies, truth_table
+
+
+
 build_statement("A(s) s")
 s1, s2, s3 = symbols('s1 s2 s3')
 expr = And(s1, s2, s3) # expr = s1 ∧ s2 ∧ s3
