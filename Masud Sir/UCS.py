@@ -38,7 +38,7 @@ def ucs(graph, start, goal):
 
     while frontier:
 
-#         heap থেকে সবচেয়ে কম খরচের path টা বের করা হচ্ছে। path_cost → ওই path পর্যন্ত মোট খরচ,node → বর্তমান নোড , path_list → এখন পর্যন্ত পুরো path
+        #heap থেকে সবচেয়ে কম খরচের path টা বের করা হচ্ছে। path_cost → ওই path পর্যন্ত মোট খরচ,node → বর্তমান নোড , path_list → এখন পর্যন্ত পুরো path
         path_cost, node, path_list = heappop(frontier)
         if node == goal:
             return path_cost, path_list
@@ -51,7 +51,7 @@ def ucs(graph, start, goal):
             if neighbor not in best_graph or updated_cost < best_graph[neighbor]:
                 best_graph[neighbor] = updated_cost
                 heappush(frontier, (updated_cost, neighbor, path_list + [neighbor]))
-    #  যদি frontier খালি হয়ে যায় কিন্তু goal পাওয়া না যায়, তাহলে বোঝাবে যে goal এ যাওয়া সম্ভব না। সে ক্ষেত্রে return করবে (None, ∞) অর্থাৎ path নাই আর খরচ অসীম।
+    # যদি frontier খালি হয়ে যায় কিন্তু goal পাওয়া না যায়, তাহলে বোঝাবে যে goal এ যাওয়া সম্ভব না। সে ক্ষেত্রে return করবে (None, ∞) অর্থাৎ path নাই আর খরচ অসীম।
     return None, float("inf")
 
 cost, path= ucs(G, "Arad", "Bucharest")
