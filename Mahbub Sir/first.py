@@ -28,7 +28,7 @@ def build_statement(logic):
     for ch in logic:
         if ch == "!":
             neg = True
-            
+
         elif ch == "&":
             print(" and ", end="")
         elif ch == "|":
@@ -37,6 +37,8 @@ def build_statement(logic):
             print(" if and only if, ", end="")
         elif ch == "~":
             print(" implies, ", end="")
+
+            
         elif ch == "A":
             print("For all ", end="")
             # only_sub=True মানে এর পরে শুধু subject প্রিন্ট করতে হবে (predicate নয়)।
