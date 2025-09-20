@@ -79,20 +79,34 @@ build_statement("a & !b ~ a")
 # -------------------
 # Truth Table Drawing
 # -------------------
-def draw_table(li, *args):
-    length = len(" | ".join(args))   # হেডারের দৈর্ঘ্য বের করছে
-    print("-" * length)              # উপরে ড্যাশ লাইন
-    print(" | ".join(args))          # হেডার প্রিন্ট (যেমন: A | B | A AND B)
-    print("-" * length)              # আবার ড্যাশ লাইন
-    for row in li:                   # প্রতিটা রো ঘুরে ঘুরে
-        print(" | ".join(str(i) for i in row))   # রো এর ভ্যালু প্রিন্ট
-    print("-" * length)              # নিচে ড্যাশ লাইন
+# def draw_table(li, *args):
+#     length = len(" | ".join(args))   # হেডারের দৈর্ঘ্য বের করছে
+#     print("-" * length)              # উপরে ড্যাশ লাইন
+#     print(" | ".join(args))          # হেডার প্রিন্ট (যেমন: A | B | A AND B)
+#     print("-" * length)              # আবার ড্যাশ লাইন
+#     for row in li:                   # প্রতিটা রো ঘুরে ঘুরে
+#         print(" | ".join(str(i) for i in row))   # রো এর ভ্যালু প্রিন্ট
+#     print("-" * length)              # নিচে ড্যাশ লাইন
 
 
-draw_table([["1", "1", "1"],
-            ["1", "0", "0"],
-            ["0", "1", "0"],
-            ["0", "0", "0"]], "A", "B", "A AND B")
+# draw_table([["1", "1", "1"],
+#             ["1", "0", "0"],
+#             ["0", "1", "0"],
+#             ["0", "0", "0"]], "A", "B", "A AND B")
+
+from tabulate import tabulate  # pip install tabulate
+
+data = [
+    ["1", "1", "1"],
+    ["1", "0", "0"],
+    ["0", "1", "0"],
+    ["0", "0", "0"]
+]
+
+headers = ["A", "B", "A AND B"]
+
+print(tabulate(data, headers=headers, tablefmt="grid"))
+
 
 
 
