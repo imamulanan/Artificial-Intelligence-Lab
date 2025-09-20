@@ -59,6 +59,16 @@ def build_statement(logic):
                 neg = False
             else:
                 print_statement(ch)
+                # 👉 তিনটা case:
+
+                # Quantifier পরে থাকলে → শুধু subject দেখাবে।
+                # উদাহরণ: A(s) s → "For all students, students are brilliant."
+
+                # neg=True থাকলে → negative statement বানাবে।
+                # উদাহরণ: !b → "Real CR is not lazy"
+
+                # normal case → positive statement বানাবে।
+
     print(".")
 
 # Example Run
@@ -70,13 +80,14 @@ build_statement("a & !b ~ a")
 # Truth Table Drawing
 # -------------------
 def draw_table(li, *args):
-    length = len(" | ".join(args))
-    print("-" * length)
-    print(" | ".join(args))
-    print("-" * length)
-    for row in li:
-        print(" | ".join(str(i) for i in row))
-    print("-" * length)
+    length = len(" | ".join(args))   # হেডারের দৈর্ঘ্য বের করছে
+    print("-" * length)              # উপরে ড্যাশ লাইন
+    print(" | ".join(args))          # হেডার প্রিন্ট (যেমন: A | B | A AND B)
+    print("-" * length)              # আবার ড্যাশ লাইন
+    for row in li:                   # প্রতিটা রো ঘুরে ঘুরে
+        print(" | ".join(str(i) for i in row))   # রো এর ভ্যালু প্রিন্ট
+    print("-" * length)              # নিচে ড্যাশ লাইন
+
 
 draw_table([["1", "1", "1"],
             ["1", "0", "0"],
