@@ -60,11 +60,11 @@ from sympy import symbols
 from sympy.logic.boolalg import And, Not, Implies, truth_table
 build_statement("A(s) s")
 s1, s2, s3 = symbols('s1 s2 s3')
-expr = And(s1, s2, s3)
+expr = And(s1, s2, s3) # expr = s1 ∧ s2 ∧ s3
 print("First Order Logic Expression:")
 print("s1 s2 s3 | A(s) s")
 for row in truth_table(expr, [s1, s2, s3]):
-    vals, value = row
+    vals, value = row # vals = (s1, s2, s3), value = expr
     print(vals[0], vals[1], vals[2], "|", int(bool(value)))
 
 
