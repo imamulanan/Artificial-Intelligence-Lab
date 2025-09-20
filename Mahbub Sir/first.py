@@ -38,7 +38,7 @@ def build_statement(logic):
         elif ch == "~":
             print(" implies, ", end="")
 
-            
+
         elif ch == "A":
             print("For all ", end="")
             # only_sub=True মানে এর পরে শুধু subject প্রিন্ট করতে হবে (predicate নয়)।
@@ -46,6 +46,8 @@ def build_statement(logic):
         elif ch == "E":
             print("For some ", end="")
             only_sub = True
+
+            # Brackets / comma বাদ দেওয়া
         elif ch in ["(", ")", ","]:
             continue
         else:
