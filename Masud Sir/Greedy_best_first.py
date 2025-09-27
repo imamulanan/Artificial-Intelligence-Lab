@@ -45,10 +45,8 @@ def greedy_best_first(graph, heuristic, start, goal):
         # h(n) মানে হলো নোড n থেকে goal (Bucharest) পর্যন্ত আনুমানিক খরচ।
         # f(n) = g(n) + h(n)
         h, g, node, path = heappop(frontier)
-
         if node == goal:
             return g, path
-
         if node in visited:
             continue
         visited.add(node)
